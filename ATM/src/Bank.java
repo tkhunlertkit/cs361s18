@@ -1,14 +1,24 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.Scanner;
 import java.util.Set;
 
 public class Bank {
 
     private HashMap<String, Account> accounts;
+    private static Bank bank = null;
 
-    public Bank() {
+    public static Bank getBank() {
+        if (bank == null) {
+            bank = new Bank();
+        }
+
+        return bank;
+    }
+
+    public void resetBank() {
+        bank = new Bank();
+    }
+
+    private Bank() {
         accounts = new HashMap<>();
         this.add("1234", "6789", 80);
         this.add("6789", "4321", 60);
@@ -66,5 +76,9 @@ public class Bank {
 
     public Set<String> getAllAccounts() {
         return accounts.keySet();
+    }
+
+    public boolean checkAccount(String accountNumber) {
+        return accounts.containsKey(accountNumber);
     }
 }

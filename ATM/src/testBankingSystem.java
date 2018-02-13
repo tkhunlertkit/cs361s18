@@ -1,14 +1,15 @@
-import static org.junit.Assert.*;
-
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class testBankingSystem {
 
     private Bank testBank;
 
     @Before public void setup() {
-        testBank = new Bank();
+        testBank = Bank.getBank();
     }
 
     @Test public void testInitialBalance() {
@@ -45,6 +46,10 @@ public class testBankingSystem {
     @Test(expected = AccountNotExistedException.class)
     public void testNonExistedAccount() {
         testBank.validate("1111", "blah");
+    }
+
+    @After public void tearDown() {
+        testBank.resetBank();
     }
 
 }

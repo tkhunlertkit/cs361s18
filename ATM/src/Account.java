@@ -15,7 +15,7 @@ public class Account {
     }
 
     public boolean validate(String pin) {
-        return pin == this.pin;
+        return pin.equalsIgnoreCase(this.pin);
     }
 
     public double getBalance() {
@@ -25,4 +25,5 @@ public class Account {
     public void updateBalance(double amount) {
         this.balance += (int) (amount * 100);
     }
+
 }
