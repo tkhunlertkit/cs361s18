@@ -8,10 +8,10 @@ public class Account {
         this("0000", "0000", 0);
     }
 
-    public Account(String accountNumber, String pin, int balance) {
+    public Account(String accountNumber, String pin, double balance) {
         this.accountNumber = accountNumber;
         this.pin = pin;
-        this.balance = balance;
+        this.balance = (int)(balance * 100);
     }
 
     public boolean validate(String pin) {
@@ -19,10 +19,10 @@ public class Account {
     }
 
     public double getBalance() {
-        return (double) this.balance / 100;
+        return ((double) this.balance / 100);
     }
 
     public void updateBalance(double amount) {
-        this.balance += (int)amount * 100;
+        this.balance += (int) (amount * 100);
     }
 }

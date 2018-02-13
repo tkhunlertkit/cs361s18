@@ -3,14 +3,16 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class testATMSystem {
+public class testBankingSystem {
 
     private Bank testBank;
 
     @Before public void setup() {
         testBank = new Bank();
-        testBank.add("1234", "6789", 80);
-        testBank.add("6789", "4321", 60);
+    }
+
+    @Test public void testInitialBalance() {
+        assertEquals("Should be $80.00", 80.00, testBank.checkBalance("1234", "6789"), 0.001);
     }
 
     @Test public void testGeneralWithdrawal() {

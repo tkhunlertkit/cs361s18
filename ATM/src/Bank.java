@@ -1,4 +1,7 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Bank {
@@ -7,10 +10,12 @@ public class Bank {
 
     public Bank() {
         accounts = new HashMap<>();
+        this.add("1234", "6789", 80);
+        this.add("6789", "4321", 60);
     }
 
     public void add(String accountNumber, String pin, double balance) throws AccountExistedException{
-        Account a = new Account(accountNumber, pin, (int) balance * 100);
+        Account a = new Account(accountNumber, pin, balance);
         if (!accounts.containsKey(accountNumber)) {
             accounts.put(accountNumber, a);
             return;
