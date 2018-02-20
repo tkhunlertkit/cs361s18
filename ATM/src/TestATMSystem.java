@@ -8,7 +8,9 @@ public class TestATMSystem {
     private ATM atm;
 
     @Before public void setup() {
-        atm = new ATM();
+        Hardware hw = null;
+        atm = new ATM(hw);
+        hw = new Hardware(atm);
         atm.start();
     }
 

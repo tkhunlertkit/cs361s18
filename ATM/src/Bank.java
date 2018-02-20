@@ -41,20 +41,21 @@ public class Bank {
         throw new AccountNotExistedException();
     }
 
-    public boolean withdraw(String accountNumber, String pin, double amount) throws AccountNotExistedException {
+    public double withdraw(String accountNumber, String pin, double amount) throws AccountNotExistedException {
 
         if (validate(accountNumber, pin)) {
             // Account exists
             Account a = accounts.get(accountNumber);
-            if (a.getBalance() >= amount) {
+            if (a.getBalance() < amount) {
                 // update amount
-                a.updateBalance(-amount);
-                return true;
-            } else {
-                return false;
+                amount = a.getBalance();
             }
+
+            a.updateBalance(-amount);
+            return amount;
         }
-        return false;
+
+        throw new AccountNotExistedException();
     }
 
     public boolean deposit(String accountNumber, String pin, double amount) throws AccountNotExistedException {

@@ -1,15 +1,20 @@
+import java.util.Date;
 import java.util.Scanner;
 
 public class Driver {
     public static void main(String[] args) {
 
-        ATM atm = new ATM();
+
+        Hardware hw = new Hardware();
+        ATM atm = new ATM(hw);
+        hw.setATM(atm);
         atm.start();
+
         Scanner s = new Scanner(System.in);
 
         while (true) {
-            System.out.print(atm.getStatement());
-            System.out.println(atm.execute(s.nextLine()));
+            System.out.print("Enter Command: ");
+            atm.execute(s.nextLine());
         }
 
     }
