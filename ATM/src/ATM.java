@@ -77,7 +77,7 @@ public class ATM {
     public void checkAccount(String accountNumber) {
         if (b.checkAccount(accountNumber)) {
             currentSession.accountNumber = accountNumber;
-            currentSession.state = currentSession.state.next();
+            currentSession.state = State.ACCOUNT_NUM_ENTERED;
             hw.execute("DIS \"Enter PIN\"");
         } else {
             currentSession = new Session();
@@ -107,8 +107,6 @@ public class ATM {
             hw.execute("DIS \"Not a number !\"");
             currentSession = new Session();
         }
-
-
     }
 
     public void deposit(String amountString) {
@@ -125,12 +123,9 @@ public class ATM {
             hw.execute("DIS \"Not a number !\"");
             currentSession = new Session();
         }
-
-
     }
 
     public void accountOperation(String param) {
-
         switch (currentSession.state) {
             case ACCOUNT_NUM_ENTERED: validateAccount(param); break;
             case WITHDRAWAL_SELECTED: withdraw(param);        break;
