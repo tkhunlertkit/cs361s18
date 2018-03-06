@@ -17,17 +17,13 @@ public class MainDirectory implements Directory {
         return instance;
     }
 
-    public void add(String json) {
-        Collection<Employee> emps = new Gson().fromJson(json, new TypeToken<Collection<Employee>>(){}.getType());
+    @Override
+    public void add(String jsonEmpList) {
+        Collection<Employee> emps = new Gson().fromJson(jsonEmpList, new TypeToken<Collection<Employee>>(){}.getType());
         System.out.println("Receive after json decode");
         System.out.println(emps);
         System.out.println("End of decoded message");
-        this.add(emps);
-    }
-
-    @Override
-    public void add(Collection<Employee> employees) {
-        employees.forEach(e -> this.employees.add(e));
+        emps.forEach(e -> this.employees.add(e));
     }
 
     @Override
