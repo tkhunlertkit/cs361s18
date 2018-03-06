@@ -15,8 +15,8 @@ public class DirectoryEditor {
     }
 
     public void execute(String command) {
-        command = command.trim().toUpperCase();
-        switch(command) {
+        String testedCommand = command.trim().toUpperCase();
+        switch(testedCommand) {
             case "ADD":
                 this.state = State.ADD;
                 break;
