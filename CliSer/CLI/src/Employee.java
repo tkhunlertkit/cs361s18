@@ -17,6 +17,21 @@ public class Employee implements Comparable {
     }
 
     @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Employee)) {
+            return false;
+        } else {
+            Employee o = (Employee) other;
+            return  o.fname.equalsIgnoreCase(this.fname) &&
+                    o.lname.equalsIgnoreCase(this.lname) &&
+                    o.title.equalsIgnoreCase(this.title) &&
+                    o.dept.equalsIgnoreCase(this.dept) &&
+                    o.phone.equalsIgnoreCase(this.phone) &&
+                    o.gender.equalsIgnoreCase(this.gender);
+        }
+    }
+
+    @Override
     public int compareTo(Object o) {
         if (o instanceof Employee) {
             return this.lname.compareToIgnoreCase(((Employee) o).lname);

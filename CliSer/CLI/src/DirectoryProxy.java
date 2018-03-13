@@ -1,13 +1,18 @@
-import com.google.gson.Gson;
-
 import java.io.DataOutputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
 
 public class DirectoryProxy implements Directory{
+
+    private String ip;
+
+    public DirectoryProxy() {
+        this("localhost");
+    }
+
+    public DirectoryProxy(String ip) {
+        this.ip = ip;
+    }
 
     @Override
     public void add(String jsonEmpList) {
@@ -21,13 +26,13 @@ public class DirectoryProxy implements Directory{
 
     @Override
     public void clear() {
-        // this.sendCommand("CLR {}");
+         this.sendCommand("CLRSPEC {}");
     }
 
     private void sendCommand(String command) {
         try {
             // Client will connect to this location
-            URL site = new URL("http://localhost:8000/sendresults");
+            URL site = new URL("http://" + this.ip + ":8000/sendresults");
             HttpURLConnection conn = (HttpURLConnection) site.openConnection();
 
             // now create a POST request
