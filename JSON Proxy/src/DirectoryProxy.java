@@ -6,6 +6,11 @@ import java.util.Collection;
 public class DirectoryProxy implements Directory{
 
     @Override
+    public void execute(String commandArgs) {
+        // connect to server
+    }
+
+    @Override
     public void add(String jsonEmpList) {
         MainDirectory.getInstance().add(jsonEmpList);
     }

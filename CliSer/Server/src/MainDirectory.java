@@ -18,11 +18,6 @@ public class MainDirectory implements Directory {
     }
 
     @Override
-    public void execute(String commandArgs) {
-        // parse input
-    }
-
-    @Override
     public void add(String jsonEmpList) {
         Collection<Employee> emps = new Gson().fromJson(jsonEmpList, new TypeToken<Collection<Employee>>(){}.getType());
         System.out.println("Receive after json decode");
@@ -33,16 +28,24 @@ public class MainDirectory implements Directory {
 
     @Override
     public void print() {
-        if (!employees.isEmpty()) {
-            Collections.sort(this.employees);
-            this.employees.forEach(e -> System.out.println(e));
-        } else {
-            System.out.println("<empty directory>");
-        }
+        System.out.println(this);
     }
 
     @Override
     public void clear() {
         this.employees.clear();
+    }
+
+    public String toString() {
+        String res = "";
+        if (!employees.isEmpty()) {
+            Collections.sort(this.employees);
+            for (Employee e : this.employees)
+                res += e + "\n";
+        } else {
+            res = "<empty directory>";
+        }
+
+        return res;
     }
 }
