@@ -1,14 +1,11 @@
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class MainDirectory implements Directory {
 
-    List<Employee> employees = new ArrayList<>();
+    List<EmployeeSubmission> employees = new ArrayList<>();
     private static MainDirectory instance = new MainDirectory();
 
     private MainDirectory(){}
@@ -19,11 +16,17 @@ public class MainDirectory implements Directory {
 
     @Override
     public void add(String jsonEmpList) {
-        Collection<Employee> emps = new Gson().fromJson(jsonEmpList, new TypeToken<Collection<Employee>>(){}.getType());
+//        System.out.println(jsonEmpList);
+        Collection<EmployeeSubmission> emps = new Gson().fromJson(jsonEmpList, new TypeToken<Collection<EmployeeSubmission>>(){}.getType());
+        Date submittedDate = new Date();
+        emps.forEach(e -> {
+            System.out.println("hello");
+            e.addTime(submittedDate);
+            this.employees.add(e);
+        });
         System.out.println("Receive after json decode");
         System.out.println(emps);
         System.out.println("End of decoded message");
-        emps.forEach(e -> this.employees.add(e));
     }
 
     @Override
