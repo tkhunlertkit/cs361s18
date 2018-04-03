@@ -29,4 +29,28 @@ public class Employee implements Comparable {
     public String toString() {
         return title + " " + lname + ", " + fname + ", " + gender + ", is in " + dept + ". Contact: " + phone;
     }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getDept() {
+        return dept;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getGender() {
+        return gender;
+    }
 }

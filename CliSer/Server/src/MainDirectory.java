@@ -51,4 +51,8 @@ public class MainDirectory implements Directory {
 
         return res;
     }
+
+    public List<EmployeeSubmission> getEmployeesList() {
+        return employees;
+    }
 }

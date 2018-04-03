@@ -36,4 +36,38 @@ public class EmployeeSubmission extends Employee {
 
         return 0;
     }
+
+    public String getSubmittedDate() {
+        return sdf.format(submittedDate);
+    }
+
+    @Override
+    public String getDept() {
+        return super.getDept();
+    }
+
+    @Override
+    public String getFname() {
+        return super.getFname();
+    }
+
+    @Override
+    public String getLname() {
+        return super.getLname();
+    }
+
+    @Override
+    public String getPhone() {
+        return super.getPhone();
+    }
+
+    @Override
+    public String getTitle() {
+        return super.getTitle();
+    }
+
+    @Override
+    public String getGender() {
+        return super.getGender();
+    }
 }
