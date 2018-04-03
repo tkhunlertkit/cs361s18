@@ -1,24 +1,31 @@
+package Controller;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Light {
 
-    private enum LightState {
+    public enum LightState implements State {
         ON, OFF
     }
 
+    private GarageDoorSystem gds;
     private LightState ls;
 
-    public Light() {
+    public Light(GarageDoorSystem gds) {
+        this.gds = gds;
         ls = LightState.OFF;
+        this.gds.notifyAllObservers();
     }
 
     public void on() {
         ls = LightState.ON;
+        this.gds.notifyAllObservers();
     }
 
     public void off() {
         ls = LightState.OFF;
+        this.gds.notifyAllObservers();
     }
 
     public void onTimed() {
@@ -27,8 +34,7 @@ public class Light {
         t.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                ls = LightState.OFF;
-                System.out.println(ls.toString());
+                off();
                 t.cancel();
             }
         }, 5000, 500);
@@ -47,8 +53,8 @@ public class Light {
         }
     }
 
-    public String getState() {
-        return ls.toString();
+    public State getState() {
+        return ls;
     }
 
 }

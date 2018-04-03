@@ -1,6 +1,8 @@
+package Controller;
+
 public class StateMachine {
 
-    private enum DoorState {
+    public enum DoorState implements State {
         CLOSED,
         OPENED,
         OPENING,
@@ -18,6 +20,7 @@ public class StateMachine {
     }
 
     public void nextStateClick() {
+        boolean update = true;
         switch(this.dState) {
             case CLOSED:
                 this.dState = DoorState.OPENING;
@@ -45,16 +48,22 @@ public class StateMachine {
                 this.gds.open();
                 break;
             default:
+                update = false;
                 break;
+        }
+        if (update) {
+            this.gds.notifyAllObservers();
         }
     }
 
     public void nextStateSafety() {
         this.gds.open();
         this.dState = DoorState.OPENING;
+        this.gds.notifyAllObservers();
     }
 
     public void nextStateLimit() {
+        boolean update = true;
         switch(this.dState) {
             case OPENING:
                 this.dState = DoorState.OPENED;
@@ -65,11 +74,14 @@ public class StateMachine {
                 this.gds.stop();
                 break;
             default:
+                update = false;
                 break;
         }
+
+        if (update) this.gds.notifyAllObservers();
     }
 
-    public String getState() {
-        return this.dState.toString();
+    public State getState() {
+        return this.dState;
     }
 }

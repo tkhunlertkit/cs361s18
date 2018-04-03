@@ -1,11 +1,16 @@
+package UserInterface;
+
+import Controller.GarageDoorSystem;
+import Controller.Observer;
+
+import javax.swing.*;
 import java.util.Scanner;
 
-public class Console {
-
-    private GarageDoorSystem gds;
+public class Console extends Observer {
 
     public Console(GarageDoorSystem gds) {
         this.gds = gds;
+        this.gds.attach(this);
         inputCommands();
     }
 
@@ -34,8 +39,11 @@ public class Console {
                 default:
                     break;
             }
-            System.out.println(this.gds.getStatus());
         }
     }
 
+    @Override
+    public void update() {
+        System.out.println(this.gds);
+    }
 }
