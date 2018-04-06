@@ -10,9 +10,15 @@ import java.awt.event.ActionListener;
 public class RemoteGui extends JFrame{
 
     private GarageDoorSystem gds;
+//    private Thread doorThread, safetyThread, limitThread, lightThread;
 
-    public RemoteGui(GarageDoorSystem gds) {
+    public RemoteGui(GarageDoorSystem gds) {//, Thread doorThread, Thread safetyThread, Thread limitThread, Thread lightThread) {
         this.gds = gds;
+//        this.doorThread = doorThread;
+//        this.safetyThread = safetyThread;
+//        this.limitThread = limitThread;
+//        this.lightThread = lightThread;
+
         creteContent();
         this.setSize(120, 200);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -31,7 +37,6 @@ public class RemoteGui extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 gds.onClick();
-                System.out.println(gds);
             }
         });
 
@@ -39,7 +44,6 @@ public class RemoteGui extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 gds.lClick();
-                System.out.println(gds);
             }
         });
 
@@ -47,7 +51,6 @@ public class RemoteGui extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 gds.onSafety();
-                System.out.println(gds);
             }
         });
 
@@ -55,7 +58,6 @@ public class RemoteGui extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 gds.onLimit();
-                System.out.println(gds);
             }
         });
 

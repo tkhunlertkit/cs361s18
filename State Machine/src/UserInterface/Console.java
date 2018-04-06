@@ -6,19 +6,22 @@ import Controller.Observer;
 import javax.swing.*;
 import java.util.Scanner;
 
-public class Console extends Observer {
+public class Console extends Observer implements Runnable {
 
-    public Console(GarageDoorSystem gds) {
+    private Thread mainThread;
+
+    public Console(GarageDoorSystem gds, Thread mainThread) {
         this.gds = gds;
         this.gds.attach(this);
-        inputCommands();
+        this.mainThread = mainThread;
     }
 
     private void inputCommands() {
         Scanner s = new Scanner(System.in);
         String command = "";
         while(true) {
-            System.out.print("Enter Command: ");
+            mainThread.interrupt();
+//            System.out.print("Enter Command: ");
             command = s.next();
             switch(command.toLowerCase()) {
                 case "dclick":
@@ -45,5 +48,10 @@ public class Console extends Observer {
     @Override
     public void update() {
         System.out.println(this.gds);
+    }
+
+    @Override
+    public void run() {
+        inputCommands();
     }
 }

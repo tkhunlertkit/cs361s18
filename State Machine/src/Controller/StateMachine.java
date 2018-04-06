@@ -2,7 +2,7 @@ package Controller;
 
 public class StateMachine {
 
-    public enum DoorState implements State {
+    private enum DoorState {
         CLOSED,
         OPENED,
         OPENING,
@@ -66,13 +66,17 @@ public class StateMachine {
         boolean update = true;
         switch(this.dState) {
             case OPENING:
+            case PAUSEOPENING:
                 this.dState = DoorState.OPENED;
                 this.gds.stop();
                 break;
+
             case CLOSING:
+            case PAUSECLOSING:
                 this.dState = DoorState.CLOSED;
                 this.gds.stop();
                 break;
+
             default:
                 update = false;
                 break;
@@ -81,7 +85,13 @@ public class StateMachine {
         if (update) this.gds.notifyAllObservers();
     }
 
-    public State getState() {
-        return this.dState;
+    public boolean isGoingUp() {
+        return dState == DoorState.OPENING ||
+                dState == DoorState.OPENED ||
+                dState == DoorState.PAUSEOPENING;
     }
+
+//    public State getState() {
+//        return this.dState;
+//    }
 }

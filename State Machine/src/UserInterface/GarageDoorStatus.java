@@ -4,9 +4,10 @@ import Controller.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static Controller.StateMachine.*;
-import static Controller.StateMachine.DoorState.OPENING;
 
 public class GarageDoorStatus extends Observer{
 
@@ -16,6 +17,7 @@ public class GarageDoorStatus extends Observer{
     private static ImageIcon down;
     private static ImageIcon on;
     private static ImageIcon off;
+    private Timer blink;
 
     public GarageDoorStatus(GarageDoorSystem gds) {
         this.gds = gds;
@@ -29,16 +31,13 @@ public class GarageDoorStatus extends Observer{
     }
 
     static {
-        up   = new ImageIcon("up.png");
-        down = new ImageIcon("down.png");
-        on   = new ImageIcon("on.png");
         int imgWidth = 200;
         int imgHeight = 200;
-        Image image = on.getImage();
-        image = image.getScaledInstance(imgWidth, imgHeight, java.awt.Image.SCALE_SMOOTH);
-        on = new ImageIcon(image);
 
-        off = new ImageIcon(new ImageIcon("off.png").getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH));
+        up   = new ImageIcon("up.png");
+        down = new ImageIcon("down.png");
+        on   = new ImageIcon(new ImageIcon("on.png").getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH));
+        off  = new ImageIcon(new ImageIcon("off.png").getImage().getScaledInstance(imgWidth, imgHeight, Image.SCALE_SMOOTH));
     }
 
     private void createContent(JFrame frame) {
@@ -59,25 +58,24 @@ public class GarageDoorStatus extends Observer{
         frame.setResizable(false);
         frame.setVisible(true);
 
+        blink = new Timer(1000, e -> doorState.setVisible(!doorState.isVisible()));
+
         this.update();
     }
 
     @Override
     public void update() {
-        State i = this.gds.getDoorState();
-        State l = this.gds.getLightState();
+        doorState.setIcon(this.gds.isGoingUp() ? up : down);
+        lightState.setIcon(this.gds.isLightOn() ? on : off);
+        setBlinkStatus(this.gds.isMotorOn());
+    }
 
-        if (DoorState.OPENING.equals(i)) {
-            doorState.setIcon(up);
+    private void setBlinkStatus(boolean blinking) {
+        if (blinking) {
+            blink.start();
+        } else {
+            blink.stop();
+            doorState.setVisible(true);
         }
-        if (DoorState.OPENED.equals(i)) doorState.setIcon(up);
-        if (DoorState.CLOSED.equals(i)) doorState.setIcon(down);
-        if (DoorState.CLOSING.equals(i)) doorState.setIcon(down);
-        if (DoorState.PAUSEOPENING.equals(i)) doorState.setIcon(up);
-        if (DoorState.PAUSECLOSING.equals(i)) doorState.setIcon(down);
-
-        if (Light.LightState.ON.equals(l)) lightState.setIcon(on);
-        if (Light.LightState.OFF.equals(l)) lightState.setIcon(off);
-
     }
 }

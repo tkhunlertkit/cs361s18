@@ -2,7 +2,7 @@ package Controller;
 
 public class Motor {
 
-    public enum MotorDirection implements State {
+    private enum MotorDirection {
         UP, DOWN;
 
         public static MotorDirection reverse(MotorDirection md) {
@@ -41,9 +41,9 @@ public class Motor {
         this.gds.notifyAllObservers();
     }
 
-    public State getState() {
-        return this.mDir;
-    }
+//    public State getState() {
+//        return this.mDir;
+//    }
 
     public boolean inMotion() {
         return inMotion;

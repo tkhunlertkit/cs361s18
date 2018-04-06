@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 public class Light {
 
-    public enum LightState implements State {
+    private enum LightState {
         ON, OFF
     }
 
@@ -53,8 +53,8 @@ public class Light {
         }
     }
 
-    public State getState() {
-        return ls;
+    public boolean isLightOn() {
+        return ls.equals(LightState.ON);
     }
 
 }

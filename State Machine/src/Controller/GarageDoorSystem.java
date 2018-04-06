@@ -51,17 +51,29 @@ public class GarageDoorSystem {
         light.onTimed();
     }
 
-    public State getDoorState() {
-        return sm.getState();
+    public boolean isGoingUp() {
+        return sm.isGoingUp();
     }
 
-    public State getLightState() {
-        return light.getState();
+    public boolean isLightOn() {
+        return light.isLightOn();
     }
 
-    public State getMotorState() {
-        return motor.getState();
+    public boolean isMotorOn() {
+        return motor.inMotion();
     }
+
+//    public State getDoorState() {
+//        return sm.getState();
+//    }
+//
+//    public State getLightState() {
+//        return light.getState();
+//    }
+//
+//    public State getMotorState() {
+//        return motor.getState();
+//    }
 
     public void attach(Observer obs) {
         this.observers.add(obs);
@@ -73,6 +85,8 @@ public class GarageDoorSystem {
 
     @Override
     public String toString() {
-        return "\nDoor State: " + sm.getState() + "\nLight: " + light.getState() + "\nMotor: " + motor.getState();
+        return "\nDoor State: " + (sm.isGoingUp() ? "UP" : "Down") +
+                "\nLight: " + (light.isLightOn() ? "ON" : "OFF") +
+                "\nMotor: " + (motor.inMotion() ? "ON" : "OFF");
     }
 }
