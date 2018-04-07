@@ -63,18 +63,6 @@ public class GarageDoorSystem {
         return motor.inMotion();
     }
 
-//    public State getDoorState() {
-//        return sm.getState();
-//    }
-//
-//    public State getLightState() {
-//        return light.getState();
-//    }
-//
-//    public State getMotorState() {
-//        return motor.getState();
-//    }
-
     public void attach(Observer obs) {
         this.observers.add(obs);
     }

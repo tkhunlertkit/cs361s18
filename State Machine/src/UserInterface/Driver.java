@@ -1,7 +1,6 @@
 package UserInterface;
 
 import Controller.GarageDoorSystem;
-import Thread.ExitThread;
 
 public class Driver {
 
@@ -11,22 +10,17 @@ public class Driver {
         new GarageDoorStatus(gds);
 
         Thread console = new Thread(new Console(gds, Thread.currentThread()), "console");
-        Thread exit = new Thread(new ExitThread(Thread.currentThread()), "exit");
         console.start();
 
-        int numThreadActive = 1;
-        while (numThreadActive > 0) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ie) {
-                System.out.println("Notified from other thread ");
-                ie.printStackTrace();
-            }
-            numThreadActive = 0;
-            if (console.isAlive()) {
-                numThreadActive++;
-            }
+        Thread exit = new Thread(new ExitThreadGUI(Thread.currentThread()), "exit");
+        exit.start();
+        try {
+            exit.join();
+            System.out.println("Exit Thread Done.");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
+        System.out.println("Exit: Bye Bye");
+        System.exit(0);
     }
 }

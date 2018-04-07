@@ -41,10 +41,6 @@ public class Motor {
         this.gds.notifyAllObservers();
     }
 
-//    public State getState() {
-//        return this.mDir;
-//    }
-
     public boolean inMotion() {
         return inMotion;
     }

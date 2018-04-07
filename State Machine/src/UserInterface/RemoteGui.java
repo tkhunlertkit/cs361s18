@@ -10,14 +10,9 @@ import java.awt.event.ActionListener;
 public class RemoteGui extends JFrame{
 
     private GarageDoorSystem gds;
-//    private Thread doorThread, safetyThread, limitThread, lightThread;
 
-    public RemoteGui(GarageDoorSystem gds) {//, Thread doorThread, Thread safetyThread, Thread limitThread, Thread lightThread) {
+    public RemoteGui(GarageDoorSystem gds) {
         this.gds = gds;
-//        this.doorThread = doorThread;
-//        this.safetyThread = safetyThread;
-//        this.limitThread = limitThread;
-//        this.lightThread = lightThread;
 
         creteContent();
         this.setSize(120, 200);

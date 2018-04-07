@@ -90,8 +90,4 @@ public class StateMachine {
                 dState == DoorState.OPENED ||
                 dState == DoorState.PAUSEOPENING;
     }
-
-//    public State getState() {
-//        return this.dState;
-//    }
 }

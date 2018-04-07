@@ -20,8 +20,6 @@ public class Console extends Observer implements Runnable {
         Scanner s = new Scanner(System.in);
         String command = "";
         while(true) {
-            mainThread.interrupt();
-//            System.out.print("Enter Command: ");
             command = s.next();
             switch(command.toLowerCase()) {
                 case "dclick":
