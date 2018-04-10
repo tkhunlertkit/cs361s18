@@ -5,7 +5,7 @@ import datetime
 def main(dest_name):
     dest_addr = socket.gethostbyname(dest_name)
     print('Tracing route to', dest_name, '(', dest_addr, ')...')
-    port = 33434
+    port = 80
     icmp = socket.getprotobyname('icmp')
     udp = socket.getprotobyname('udp')
     ttl = 1
@@ -16,7 +16,7 @@ def main(dest_name):
         send_socket.setsockopt(socket.SOL_IP, socket.IP_TTL, ttl)
         recv_socket.bind((b"", port))
         start = datetime.datetime.now()
-        send_socket.sendto(b"", (dest_name, port))
+        send_socket.sendto(b"", (dest_addr, port))
         curr_addr = None
         curr_name = None
         finished = False
