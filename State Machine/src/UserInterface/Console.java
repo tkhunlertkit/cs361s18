@@ -3,8 +3,9 @@ package UserInterface;
 import Controller.GarageDoorSystem;
 import Controller.Observer;
 
-import javax.swing.*;
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Console extends Observer implements Runnable {
 
@@ -16,31 +17,27 @@ public class Console extends Observer implements Runnable {
         this.mainThread = mainThread;
     }
 
-    private void inputCommands() {
-        Scanner s = new Scanner(System.in);
-        String command = "";
-        while(true) {
-            command = s.next();
-            switch(command.toLowerCase()) {
-                case "dclick":
-                    this.gds.onClick();
-                    break;
-                case "lclick":
-                    this.gds.lClick();
-                    break;
-                case "limit":
-                    this.gds.onLimit();
-                    break;
-                case "safety":
-                    this.gds.onSafety();
-                    break;
-                case "off":
-                    System.exit(0);
-                    break;
-                default:
-                    break;
-            }
+    private void execute(String command) {
+        switch(command.toLowerCase()) {
+            case "dclick":
+                this.gds.onClick();
+                break;
+            case "lclick":
+                this.gds.lClick();
+                break;
+            case "limit":
+                this.gds.onLimit();
+                break;
+            case "safety":
+                this.gds.onSafety();
+                break;
+            case "off":
+                System.exit(0);
+                break;
+            default:
+                break;
         }
+
     }
 
     @Override
@@ -50,6 +47,20 @@ public class Console extends Observer implements Runnable {
 
     @Override
     public void run() {
-        inputCommands();
+        try {
+            while (true) {
+                try {
+                    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                    while (!br.ready()) {
+                        Thread.sleep(1000);
+                    }
+                    execute(br.readLine());
+                } catch (IOException e) {
+                    System.out.println("Error reading command");
+                }
+            }
+        } catch (InterruptedException e) {
+
+        }
     }
 }

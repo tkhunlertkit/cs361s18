@@ -18,10 +18,17 @@ def trace_route(dest_name):
         # st.sendto(b'', (dest_addr, port))
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.setsockopt(socket.SOL_IP, socket.IP_TTL, ttl)
-        s.connect((dest_addr, port))
+        s.settimeout(1)
         # tries = 3
         curr_addr = ''
+        curr_name = ''
         # while tries > 0:
+        try:
+            s.connect((dest_addr, port))
+        except socket.timeout:
+            ttl += 1
+            print('Failed at connect: ttl = %02d' % ttl)
+            continue
         try:
             _, curr_addr = r.recvfrom(512)
             curr_addr = curr_addr[0]
@@ -33,7 +40,13 @@ def trace_route(dest_name):
             # break
         except socket.timeout:
             curr_name = 'Error retrieving'
-            break
+            s.send(b'')
+            data = s.recv(512)
+            print(data)
+            # _, curr_addr = r.recvfrom(512)
+            # curr_addr = curr_addr[0]
+            # print(curr_addr)
+
         except socket.error:
             pass
         # tries -= 1

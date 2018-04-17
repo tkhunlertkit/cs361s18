@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 import static Controller.StateMachine.*;
 
-public class GarageDoorStatus extends Observer{
+public class GarageDoorStatus extends Observer {
 
     private static JLabel doorState;
     private static JLabel lightState;
@@ -18,6 +18,7 @@ public class GarageDoorStatus extends Observer{
     private static ImageIcon on;
     private static ImageIcon off;
     private Timer blink;
+    private JFrame frame;
 
     public GarageDoorStatus(GarageDoorSystem gds) {
         this.gds = gds;
@@ -26,7 +27,7 @@ public class GarageDoorStatus extends Observer{
         doorState = new JLabel();
         lightState = new JLabel();
 
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         createContent(frame);
     }
 
@@ -54,7 +55,7 @@ public class GarageDoorStatus extends Observer{
 
         frame.add(main);
         frame.setSize(500, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.setResizable(false);
         frame.setVisible(true);
 
@@ -77,5 +78,9 @@ public class GarageDoorStatus extends Observer{
             blink.stop();
             doorState.setVisible(true);
         }
+    }
+
+    public void kill() {
+        frame.dispose();
     }
 }

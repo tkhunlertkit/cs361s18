@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RemoteGui extends JFrame{
+public class RemoteGui extends JFrame {
 
     private GarageDoorSystem gds;
 
@@ -16,7 +16,7 @@ public class RemoteGui extends JFrame{
 
         creteContent();
         this.setSize(120, 200);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         this.setResizable(false);
         this.setVisible(true);
     }

@@ -2,25 +2,28 @@ package UserInterface;
 
 import Controller.GarageDoorSystem;
 
+import javax.swing.*;
+
 public class Driver {
 
     public static void main(String[] argvs) {
         GarageDoorSystem gds = new GarageDoorSystem();
-        new RemoteGui(gds);
-        new GarageDoorStatus(gds);
+        JFrame remote = new RemoteGui(gds);
+        GarageDoorStatus gdstatus = new GarageDoorStatus(gds);
 
-        Thread console = new Thread(new Console(gds, Thread.currentThread()), "console");
-        console.start();
+        Thread consoleThread = new Thread(new Console(gds, Thread.currentThread()), "console");
+        consoleThread.start();
 
         Thread exit = new Thread(new ExitThreadGUI(Thread.currentThread()), "exit");
         exit.start();
         try {
             exit.join();
-            System.out.println("Exit Thread Done.");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Exit: Bye Bye");
-        System.exit(0);
+
+        consoleThread.interrupt();
+        gdstatus.kill();
+        remote.dispose();
     }
 }
